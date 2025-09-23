@@ -1,0 +1,162 @@
+\documentclass{tufte-handout}
+
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{./graphics/}}
+
+\title{Block Practice — Exploration Round: Newton Sums}
+\author[IA Math Team]{}
+\date{24 September 2025}
+
+\usepackage{booktabs}
+\usepackage{units}
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+
+\usepackage{multicol}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\nn}[1]{\vspace{#1}\noindent}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+You may approach this either with your team, or ask for an individual copy.
+This exploration is entirely \emph{student-centered}: you will \textbf{discover} Newton sums (Newton's identities) by experimenting, forming conjectures, and proving them. While it is so, you may work with a team 
+
+\nn{1em}Enjoy!
+
+\end{abstract}
+
+\section*{Learning goals}
+\begin{itemize}
+  \item Observe how sums of powers of roots relate to coefficients of a polynomial.
+  \item Conjecture and prove a recurrence (Newton sums) linking power sums and elementary symmetric sums.
+  \item Apply Newton sums to compute higher power sums quickly.
+  \item Encounter extensions: reciprocal roots, use for solving contest-style problems, and recognizing when Newton sums are efficient.
+\end{itemize}
+
+\section*{Warm-up (15 minutes; student do)}
+For each polynomial, compute the indicated power sums directly from the roots and also via coefficients using Vieta. Try to do the computation both ways without a calculator.
+
+\vspace{1em}
+\begin{enumerate}[label=\textbf{W\arabic*.}, leftmargin=*, itemsep=2em]
+  \item Polynomial: \(x^2-5x+6\). Roots: \(1,4\) or \(2,3\)? (Check.) Compute \(S_1=r+s\), \(S_2=r^2+s^2\), \(S_3=r^3+s^3\).
+  \item Polynomial: \(x^3-6x^2+11x-6\). (You may recognize the roots.) Compute \(P_1=\sum r\), \(P_2=\sum r^2\), \(P_3=\sum r^3\), \(P_4=\sum r^4\).
+  \item Polynomial: \(x^2-3x+1\). Let roots be \(a,b\). Compute \(a^2+b^2\) and try to compute \(a^5+b^5\) by hand (do not use brute-force expansion of powers of irrational numbers).
+\end{enumerate}
+
+\section*{Exploration (30--40 minutes)}
+You will now move from examples to pattern-finding.
+
+\subsection*{Step A: Single-root observation}
+\begin{enumerate}[label=\textbf{A\arabic*.}, leftmargin=*, nosep]
+  \item Start with a \emph{monic} polynomial of degree \(n\):
+  \[
+    f(x)=x^n+c_1x^{n-1}+c_2x^{n-2}+\cdots+c_{n-1}x+c_n,
+  \]
+  with roots \(r_1,\dots,r_n\).
+  \item For a single root \(r_i\), note that \(f(r_i)=0\). Multiply that equation by \(r_i^{k-n}\) for some integer \(k\ge 1\) and write the result. Do this for several small \(k\) (e.g. \(k=1,2,3\)) and observe the pattern.
+  \item Sum your expressions over all roots \(r_1,\dots,r_n\). Write the resulting sum in terms of the \emph{power sums}
+  \[
+    p_k = r_1^k + r_2^k + \cdots + r_n^k
+  \]
+  and the coefficients \(c_j\).
+\end{enumerate}
+
+\subsection*{Step B: Form a conjecture}
+Based on your algebra in Step A, answer these:
+\begin{itemize}
+  \item For \(1\le k\le n\), what relation do you see between \(p_k, p_{k-1},\dots,p_1\) and the coefficients \(c_1,\dots,c_k\)? Write a general formula as a conjecture.
+  \item For \(k>n\), how does the pattern continue? What changes in the recurrence?
+\end{itemize}
+
+\subsection*{Step C: Prove your conjecture}
+Now try to write a concise proof of your conjectured formula by using the summed equations from Step A. (Hint: factor and rearrange sums carefully; keep track of indices.)
+
+\section*{Guided practice (student compute)}
+Use your proven formula to compute the listed power sums quickly. Try to avoid calculating individual roots.
+
+\begin{enumerate}[label=\textbf{P\arabic*.}, leftmargin=*, nosep]
+  \item Let \(f(x)=x^3-4x^2+5x-2\). Using Newton sums, compute \(p_1,p_2,p_3,p_4\) where \(p_k=\sum_{i=1}^3 r_i^k\).
+  \item Let \(g(x)=x^4-5x^3+8x^2-4x+1\). Compute \(p_1,p_2,p_3\).
+  \item Revisit the quadratic \(x^2-3x+1\). Use Newton sums to reproduce your \(a^5+b^5\) from the warm-up (this should be much faster).
+  \item Suppose a monic cubic has \(p_1=2\), \(p_2=3\), and \(p_3= -4\). Find the coefficients \(c_1,c_2,c_3\) of the polynomial.
+\end{enumerate}
+
+\section*{Challenge investigations (groups pick one, 20--30 minutes)}
+These are open-ended. Your group should produce a short write-up with a conjecture, experiment results, and a proof or counterexample.
+
+\begin{enumerate}[label=\textbf{C\arabic*.}, leftmargin=*, nosep]
+  \item \textbf{Reciprocal roots.} If all roots \(r_i\) are nonzero, consider the polynomial with roots \(1/r_i\). How do Newton sums for reciprocals relate to the original Newton sums? Use this to compute \(\sum \frac{1}{r_i^3}\) from known \(p_1,p_2,p_3\).
+  \item \textbf{Integer-detection.} Suppose a monic polynomial with integer coefficients has small power sums \(p_1,p_2,p_3\). What can Newton sums tell you about possible integer roots? Try examples and formulate a criterion or test.
+  \item \textbf{Power-sum inversion.} Given the first \(n\) power sums \(p_1,\dots,p_n\) of a monic degree-\(n\) polynomial, can you reconstruct the coefficients? Try an example (e.g. \(n=3\) with small integers) and outline an algorithm using Newton sums.
+  \item \textbf{Application to contests.} Find a contest-style problem (AMC/AIME level) that is solved neatly by Newton sums (hint: sums like \(a^5+b^5\) or finding polynomials with given power sums). Present the problem and your solution.
+\end{enumerate}
+
+\section*{Reflection (10 minutes)}
+Each student write a one-paragraph answer to:
+\begin{itemize}
+  \item Where did you first see Newton sums implicitly in earlier problems?
+  \item What is one surprising consequence of Newton sums?
+  \item When would you \emph{not} use Newton sums? (Give a short justification.)
+\end{itemize}
+
+% \section*{Teacher prompts (short list of guiding questions)}
+% If a group gets stuck, ask one or more of these, do not give the answer directly:
+% \begin{itemize}
+%   \item What equation do you get by plugging a root into the polynomial? What happens if you multiply that by a power of the root?
+%   \item When you sum over all roots, which terms become the power sums \(p_k\)?
+%   \item How do the indices on the coefficients line up with the indices on the power sums? Can you write a term-by-term matching?
+%   \item For the case \(k\le n\), do extra terms appear involving the coefficient \(c_k\)? What happens when \(k>n\)?
+%   \item Can you test your conjectured identity on an easy example (like roots \(1,2,3\)) before proving it?
+% \end{itemize}
+
+\bigskip
+\noindent\textbf{End of student handout.}
+
+\iffalse
+% ---------------------------
+% Instructor notes and brief solutions (DO NOT SHOW STUDENTS)
+% ---------------------------
+% Quick statement of Newton sums (monic polynomial):
+% Let f(x)=x^n + c1 x^{n-1} + ... + c_n and p_k = sum r_i^k.
+% For k >= 1:
+%    p_k + c1 p_{k-1} + c2 p_{k-2} + ... + c_{k-1} p_1 + k c_k = 0    (for k <= n)
+% For k > n:
+%    p_k + c1 p_{k-1} + ... + c_n p_{k-n} = 0.
+%
+% Warm-up solutions:
+% W1: x^2 -5x +6 has roots 2 and 3. p1 = 5, p2 = 13, p3 = 35.
+% W2: x^3 -6x^2 +11x -6 has roots 1,2,3. p1 = 6, p2 = 14, p3 = 36, p4 = 98.
+% W3: x^2 -3x +1 has a+b=3, ab=1. Use recurrence S_n = 3 S_{n-1} - 1 S_{n-2}:
+% S0=2, S1=3 => S2=7, S3=18, S4=47, S5=123.
+%
+% P1: f(x)=x^3-4x^2+5x-2 => c1=-4,c2=5,c3=-2 but careful sign: for monic written as x^3 + c1 x^2 + c2 x + c3,
+% here c1=-4,c2=5,c3=-2.
+% Use formulas:
+% k=1: p1 + c1 = 0 => p1 -4 =0 => p1=4.
+% k=2: p2 + c1 p1 + 2 c2 = 0 => p2 -4*4 + 2*5 =0 => p2 -16 +10=0 => p2=6.
+% k=3: p3 + c1 p2 + c2 p1 + 3 c3 = 0 => p3 -4*6 +5*4 +3*(-2)=0 => p3 -24 +20 -6 =0 => p3=10.
+% k=4 (k>n): p4 + c1 p3 + c2 p2 + c3 p1 = 0 => p4 -4*10 +5*6 -2*4 =0 => p4 -40 +30 -8 =0 => p4 =18.
+%
+% P3: quadratic x^2 -3x +1 gave S5=123 as shown.
+%
+% P4: Given p1=2,p2=3,p3=-4 for degree 3. Use Newton sums to solve for c1,c2,c3:
+% k=1: p1 + c1 = 0 => c1 = -p1 = -2.
+% k=2: p2 + c1 p1 + 2 c2 = 0 => 3 + (-2)*2 + 2 c2 = 0 => 3 -4 +2c2=0 => c2 = 1/2.
+% k=3: p3 + c1 p2 + c2 p1 + 3 c3 = 0 => -4 + (-2)*3 + (1/2)*2 + 3 c3 = 0 => -4 -6 +1 +3c3 =0 => -9 +3c3 =0 => c3=3.
+% So polynomial: x^3 -2 x^2 + (1/2) x + 3. (If integer coefficients were desired, scale accordingly; this shows not every p-list gives integer coeffs.)
+%
+% Challenge hints:
+% C1: Reciprocal roots correspond to reversed polynomial x^n f(1/x) up to a factor; relate power sums of reciprocals to negative-degree sums or use substitution.
+% C3: Newton sums give linear equations in the coefficients; solving them recovers the c_j.
+%
+% End of instructor notes
+\fi
+
+\end{document}
